@@ -1,5 +1,6 @@
 package lab3;
 
+import javafx.util.Pair;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
@@ -27,6 +28,8 @@ public class App {
         DelaysInfo delaysTable = new DelaysInfo(sc, args[1]);
         delaysTable.parseTable();
         delaysTable.calcData();
+        delaysTable.toWritable();
+        JavaPairRDD<Pair<Integer, Integer>, String>
 
 
 

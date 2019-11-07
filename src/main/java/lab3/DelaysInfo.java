@@ -4,12 +4,10 @@ import javafx.util.Pair;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
-import scala.Tuple2;
 
 public class DelaysInfo {
 
-    private JavaPairRDD<Pair<Integer, Integer>, float[]> delaysInfoIDs;
-//    private float delaysInfoData[];
+    private JavaPairRDD<Pair<Integer, Integer>, float[]> delaysInfo;
     private JavaRDD<String> delaysTable;
 
     private final static String COMMA = ",";
@@ -18,10 +16,15 @@ public class DelaysInfo {
 
     private final static int ID_FROM_COLUMN = 11;
     private final static int ID_TO_COLUMN = 14;
+    private final static int ID_TO_COLUMN = 14;
+//    private final static int ID_TO_COLUMN = 14;
+//    private final static int ID_TO_COLUMN = 14;
+//    private final static int ID_TO_COLUMN = 14;
+//    private final static int ID_TO_COLUMN = 14;
+
 
     public DelaysInfo(JavaSparkContext sc, String path) {
         delaysTable = App.deleteTitle(sc.textFile(path));
-//        delaysInfoData = new float[COUNT_DATA_COLUMNS];
     }
 
     private String parseLineGetPos(String line, int pos) {
@@ -29,13 +32,18 @@ public class DelaysInfo {
     }
 
     public void parseTable() {
-        delaysInfoIDs = delaysTable.mapToPair(
+        delaysInfo = delaysTable.mapToPair(
                 s -> {
                     Integer idFrom = Integer.parseInt(parseLineGetPos(s, ID_FROM_COLUMN));
                     Integer idTo = Integer.parseInt(parseLineGetPos(s, ID_TO_COLUMN));
                     Pair<Integer, Integer> ids = new Pair<>(idFrom, idTo);
 
-                    return ;
+                    float data[] = new float[COUNT_DATA_COLUMNS];
+
+
+
+
+
                 }
         );
 

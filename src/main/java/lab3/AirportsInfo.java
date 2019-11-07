@@ -7,7 +7,7 @@ import scala.Tuple2;
 
 public class AirportsInfo {
 
-    private JavaPairRDD<Integer, String> airportsInfo;
+//    private JavaPairRDD<Integer, String> airportsInfo;
 //    private JavaRDD<String> airportsTable;
 
     private final static String QUOTES = "\"";
@@ -20,17 +20,17 @@ public class AirportsInfo {
     private final static int AIRPORTS_DESCRIPTION_COLUMN = 1;
 
 
-    public AirportsInfo(JavaSparkContext sc, String path) {
-        airportsTable = App.deleteTitle(sc.textFile(path));
-    }
+//    public AirportsInfo(JavaSparkContext sc, String path) {
+//        airportsTable = App.deleteTitle(sc.textFile(path));
+//    }
 
-    private String parseLineGetPos(String line, int pos) {
+    private static String parseLineGetPos(String line, int pos) {
         String column = line.split(COMMA, COUNT_COLUMNS)[pos];
         return column.replaceAll(QUOTES, EMPTY);
     }
 
-    public void parseTable(JavaRDD<String> airportsTable) {
-        airportsInfo =  airportsTable.mapToPair(
+    public static JavaPairRDD<Integer, String> parseTable(JavaRDD<String> airportsTable) {
+        return airportsTable.mapToPair(
                 s -> {
                     Integer id = Integer.parseInt(parseLineGetPos(s, AIRPORTS_ID_COLUMN));
                     String description = parseLineGetPos(s, AIRPORTS_DESCRIPTION_COLUMN);
@@ -40,7 +40,7 @@ public class AirportsInfo {
         );
     }
 
-    public JavaPairRDD<Integer, String> getAirportsInfo() {
-        return airportsInfo;
-    }
+//    public JavaPairRDD<Integer, String> getAirportsInfo() {
+//        return airportsInfo;
+//    }
 }

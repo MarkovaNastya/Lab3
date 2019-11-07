@@ -48,18 +48,22 @@ public class App {
         JavaSparkContext sc = new JavaSparkContext(conf);
 
 //        AirportsInfo airportsTable = new AirportsInfo(sc, args[0]);
-        JavaRDD<String> airportsTable = deleteTitle(sc.textFile(args[0]);
-        airportsTable.parseTable();
-        JavaPairRDD<Integer, String> airportsInfo = airportsTable.getAirportsInfo();
+        JavaRDD<String> airportsTable = deleteTitle(sc.textFile(args[0]));
+//        airportsTable.parseTable();
+        JavaPairRDD<Integer, String> airportsInfo = AirportsInfo.parseTable(airportsTable); //airportsTable.getAirportsInfo();
         Map<Integer, String> airportsInfoMap = airportsInfo.collectAsMap();
 
         final Broadcast<Map<Integer, String>> airportsBroadcasted = sc.broadcast(airportsInfoMap);
 
-        DelaysInfo delaysTable = new DelaysInfo(sc, args[1]);
-        delaysTable.parseTable();
-        delaysTable.calcData();
-        delaysTable.toWritable();
-        JavaPairRDD<Pair<Integer, Integer>, String> delaysInfo = delaysTable.getDelaysInfoWritable();
+//        DelaysInfo delaysTable = new DelaysInfo(sc, args[1]);
+        JavaRDD<String> delaysTable = deleteTitle(sc.textFile(args[1]));
+        JavaPairRDD<Pair<Integer, Integer>, float[]> parseTable = DelaysInfo.parseTable(delaysTable);
+//        delaysTable.parseTable();
+        JavaPairRDD<Pair<Integer, Integer>, float[]> calcTable = DelaysInfo.calcData(parseTable);
+//        delaysTable.calcData();
+        JavaPairRDD<Pair<Integer, Integer>, String> delaysInfo = DelaysInfo.toWritable(calcTable);
+//        delaysTable.toWritable();
+//        JavaPairRDD<Pair<Integer, Integer>, String> delaysInfo = delaysTable.getDelaysInfoWritable();
 
         JavaRDD<String> out = map(airportsBroadcasted, delaysInfo);
 

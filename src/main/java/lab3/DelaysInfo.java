@@ -8,10 +8,10 @@ import scala.Tuple2;
 
 public class DelaysInfo {
 
-    private JavaPairRDD<Pair<Integer, Integer>, float[]> delaysInfo;
-    private JavaPairRDD<Pair<Integer, Integer>, float[]> combineDelaysInfo;
-    private JavaPairRDD<Pair<Integer, Integer>, String> delaysInfoWritable;
-    private JavaRDD<String> delaysTable;
+//    private JavaPairRDD<Pair<Integer, Integer>, float[]> delaysInfo;
+//    private JavaPairRDD<Pair<Integer, Integer>, float[]> combineDelaysInfo;
+//    private JavaPairRDD<Pair<Integer, Integer>, String> delaysInfoWritable;
+//    private JavaRDD<String> delaysTable;
 
     private final static String COMMA = ",";
 
@@ -34,16 +34,16 @@ public class DelaysInfo {
     private final static int DELAY_COLUMN = 17;
 
 
-    public DelaysInfo(JavaSparkContext sc, String path) {
-        delaysTable = App.deleteTitle(sc.textFile(path));
-    }
+//    public DelaysInfo(JavaSparkContext sc, String path) {
+//        delaysTable = App.deleteTitle(sc.textFile(path));
+//    }
 
-    private String parseLineGetPos(String line, int pos) {
+    private static String parseLineGetPos(String line, int pos) {
         return line.split(COMMA)[pos];
     }
 
-    public void parseTable() {
-        delaysInfo = delaysTable.mapToPair(
+    public static JavaPairRDD<Pair<Integer, Integer>, float[]> parseTable(JavaRDD<String> delaysTable) {
+        return delaysTable.mapToPair(
                 s -> {
                     Integer idFrom = Integer.parseInt(parseLineGetPos(s, ID_FROM_COLUMN));
                     Integer idTo = Integer.parseInt(parseLineGetPos(s, ID_TO_COLUMN));
@@ -64,8 +64,8 @@ public class DelaysInfo {
         );
     }
 
-    public void calcData() {
-        combineDelaysInfo = delaysInfo.reduceByKey(
+    public static JavaPairRDD<Pair<Integer, Integer>, float[]>  calcData(JavaPairRDD<Pair<Integer, Integer>, float[]> delaysInfo) {
+        return delaysInfo.reduceByKey(
                 (firstFlightData, secondFlightData) -> {
                     float[] flightsInfo = new float[COUNT_FLIGHTS_DATA_COLUMNS];
 
@@ -95,8 +95,8 @@ public class DelaysInfo {
         );
     }
 
-    public void toWritable() {
-        delaysInfoWritable = combineDelaysInfo.mapValues(
+    public static JavaPairRDD<Pair<Integer, Integer>, String> toWritable(JavaPairRDD<Pair<Integer, Integer>, float[]> combineDelaysInfo) {
+        return combineDelaysInfo.mapValues(
                 flightsInfo -> {
                     float maxDelayTime = flightsInfo[FLIGHTS_DATA_MAX_DELAY_COLUMN];
                     float percenatageDelays = flightsInfo[FLIGHT_DATA_DELAY_COLUMN] / flightsInfo[FLIGHTS_DATA_COUNT_FLIGHTS_COLUMN] * 100;
@@ -108,7 +108,7 @@ public class DelaysInfo {
         );
     }
 
-    public JavaPairRDD<Pair<Integer, Integer>, String> getDelaysInfoWritable() {
-        return delaysInfoWritable;
-    }
+//    public JavaPairRDD<Pair<Integer, Integer>, String> getDelaysInfoWritable() {
+//        return delaysInfoWritable;
+//    }
 }

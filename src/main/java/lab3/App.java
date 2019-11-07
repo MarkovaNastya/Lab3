@@ -1,6 +1,7 @@
 package lab3;
 
 import org.apache.spark.SparkConf;
+import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 
@@ -22,6 +23,8 @@ public class App {
 //        JavaRDD<String> airportsTable = deleteTitle(sc.textFile(args[0]));
 
         Airports airports = new Airports(sc, args[0]);
+        airports.parseTable();
+        JavaPairRDD<Integer, String> airportsInfo = airports.getAirportsInfo();
 
 
 

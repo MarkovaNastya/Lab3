@@ -29,18 +29,18 @@ public class Airports {
         return column.replaceAll(QUOTES, EMPTY);
     }
 
-    private JavaPairRDD<Integer, String> parseTable() {
-        return airportsTable.mapToPair(
+    public void parseTable() {
+        airportsInfo =  airportsTable.mapToPair(
                 s -> {
                     Integer id = Integer.parseInt(parseLineGetPos(s, AIRPORTS_ID_COLIMN));
                     String description = parseLineGetPos(s, AIRPORTS_DESCRIPTION_COLIMN);
 
-                    return Tuple2<id, description>;
+                    return new Tuple2<>(id, description);
                 }
         );
-
     }
 
-
-
+    public JavaPairRDD<Integer, String> getAirportsInfo() {
+        return airportsInfo;
+    }
 }

@@ -14,10 +14,14 @@ public class Airports {
         JavaRDD<String> airportsTable = App.deleteTitle(sc.textFile(path));
     }
 
+    private String parseLine(String line) {
+        
+    }
+
     private JavaPairRDD<Integer, String> parseTable() {
         airportsTable.mapToPair(
                 s -> {
-                    Integer
+                    Integer id = s.split(",", 2)[0];
 
                     return Tuple2<>;
                 }

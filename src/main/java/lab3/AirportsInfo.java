@@ -16,8 +16,8 @@ public class AirportsInfo {
 
     private final static int COUNT_COLUMNS = 2;
 
-    private final static int AIRPORTS_ID_COLIMN = 0;
-    private final static int AIRPORTS_DESCRIPTION_COLIMN = 1;
+    private final static int AIRPORTS_ID_COLUMN = 0;
+    private final static int AIRPORTS_DESCRIPTION_COLUMN = 1;
 
 
     public AirportsInfo(JavaSparkContext sc, String path) {
@@ -32,8 +32,8 @@ public class AirportsInfo {
     public void parseTable() {
         airportsInfo =  airportsTable.mapToPair(
                 s -> {
-                    Integer id = Integer.parseInt(parseLineGetPos(s, AIRPORTS_ID_COLIMN));
-                    String description = parseLineGetPos(s, AIRPORTS_DESCRIPTION_COLIMN);
+                    Integer id = Integer.parseInt(parseLineGetPos(s, AIRPORTS_ID_COLUMN));
+                    String description = parseLineGetPos(s, AIRPORTS_DESCRIPTION_COLUMN);
 
                     return new Tuple2<>(id, description);
                 }

@@ -19,7 +19,7 @@ public class App {
     public static void main(String[] args) {
         SparkConf conf = new SparkConf().setAppName("App");
         JavaSparkContext sc = new JavaSparkContext(conf);
-        
+
         AirportsInfo airportsTable = new AirportsInfo(sc, args[0]);
         airportsTable.parseTable();
         JavaPairRDD<Integer, String> airportsInfo = airportsTable.getAirportsInfo();

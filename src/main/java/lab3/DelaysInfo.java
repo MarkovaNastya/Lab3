@@ -13,10 +13,13 @@ public class DelaysInfo {
     private final static String COMMA = ",";
 
     private final static int COUNT_DATA_COLUMNS = 1;
+    private final static int DATA_DELAY_COLUMN = 0;
+
+    private final static float NULL_TIME = 0;
 
     private final static int ID_FROM_COLUMN = 11;
     private final static int ID_TO_COLUMN = 14;
-    private final static int ID_TO_COLUMN = 14;
+    private final static int DELAY_COLUMN = 17;
 //    private final static int ID_TO_COLUMN = 14;
 //    private final static int ID_TO_COLUMN = 14;
 //    private final static int ID_TO_COLUMN = 14;
@@ -39,6 +42,14 @@ public class DelaysInfo {
                     Pair<Integer, Integer> ids = new Pair<>(idFrom, idTo);
 
                     float data[] = new float[COUNT_DATA_COLUMNS];
+
+                    if (parseLineGetPos(s, DELAY_COLUMN).length() > 0) {
+                        data[DATA_DELAY_COLUMN] = Float.parseFloat(parseLineGetPos(s, DELAY_COLUMN));
+                        
+                    } else {
+                        data[DATA_DELAY_COLUMN] = NULL_TIME;
+
+                    }
 
 
 

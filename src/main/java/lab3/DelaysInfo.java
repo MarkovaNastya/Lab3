@@ -105,7 +105,11 @@ public class DelaysInfo {
     }
 
     public void toWritable() {
-        delaysInfoWritable = combineDelaysInfo.mapValues()
+        delaysInfoWritable = combineDelaysInfo.mapValues(
+                flightsInfo -> {
+                    
+                }
+        )
     }
 
 }

@@ -29,7 +29,7 @@ public class App {
         delaysTable.parseTable();
         delaysTable.calcData();
         delaysTable.toWritable();
-        JavaPairRDD<Pair<Integer, Integer>, String>
+        JavaPairRDD<Pair<Integer, Integer>, String> delaysInfo = delaysTable.getDelaysInfoWritable();
 
 
 

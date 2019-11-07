@@ -25,11 +25,6 @@ public class DelaysInfo {
     private final static int FLIGHTS_DATA_COUNT_CANCELED_COLUMN = 2;
     private final static int FLIGHTS_DATA_COUNT_FLIGHTS_COLUMN = 3;
 
-
-
-
-
-
     private final static float NULL_TIME = 0;
     private final static float NO_CANCELED = 0;
     private final static float CANCELED = 1;
@@ -37,10 +32,6 @@ public class DelaysInfo {
     private final static int ID_FROM_COLUMN = 11;
     private final static int ID_TO_COLUMN = 14;
     private final static int DELAY_COLUMN = 17;
-//    private final static int ID_TO_COLUMN = 14;
-//    private final static int ID_TO_COLUMN = 14;
-//    private final static int ID_TO_COLUMN = 14;
-//    private final static int ID_TO_COLUMN = 14;
 
 
     public DelaysInfo(JavaSparkContext sc, String path) {

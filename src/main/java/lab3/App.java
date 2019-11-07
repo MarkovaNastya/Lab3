@@ -24,6 +24,7 @@ public class App {
         airportsTable.parseTable();
         JavaPairRDD<Integer, String> airportsInfo = airportsTable.getAirportsInfo();
 
+        DelaysInfo delaysTable = new DelaysInfo(sc, args[1]);
 
 
 

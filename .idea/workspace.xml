@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1c60a498-0207-478d-aac6-feb2161a29f6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/src/main/java/lab3/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab3/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lab3/DelaysInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab3/DelaysInfo.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

@@ -19,6 +19,11 @@ public class App {
         );
     }
 
+    public static String map(Broadcast<Map<Integer, String>> airportsBroadcasted,
+                             JavaPairRDD<Pair<Integer, Integer>, String> delaysInfo) {
+        
+    }
+
 
     public static void main(String[] args) {
         SparkConf conf = new SparkConf().setAppName("App");

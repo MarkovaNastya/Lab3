@@ -19,10 +19,25 @@ public class App {
         );
     }
 
-    public static String map(Broadcast<Map<Integer, String>> airportsBroadcasted,
+    public static JavaRDD<String> map(Broadcast<Map<Integer, String>> airportsBroadcasted,
                              JavaPairRDD<Pair<Integer, Integer>, String> delaysInfo) {
 
-        delaysInfo.map()
+        return delaysInfo.map(
+                data -> {
+                    Integer id1 = data._1.getKey();
+                    Integer id2 = data._1.getValue();
+                    String delaysInfoString = data._2;
+
+                    String id1desc = airportsBroadcasted.getValue().get(id1);
+                    String id2desc = airportsBroadcasted.getValue().get(id2);
+
+                    String out = "From " + id1desc + " (" + id1 + ") "
+                            + "to " + id2desc + " (" + id2 + ") "
+                            + delaysInfoString;
+
+                    return out;
+                }
+        );
 
 
     }
@@ -45,8 +60,9 @@ public class App {
         delaysTable.toWritable();
         JavaPairRDD<Pair<Integer, Integer>, String> delaysInfo = delaysTable.getDelaysInfoWritable();
 
+        JavaRDD<String> out = map(airportsBroadcasted, delaysInfo);
 
-
+        out.saveAsTextFile(args[2]);
 
     }
 }

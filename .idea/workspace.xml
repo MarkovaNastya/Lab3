@@ -11,6 +11,13 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
   <component name="ProjectId" id="1THqkxiRsvUMm9iTlBZEJ1Q8Si7" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="RunDashboard">

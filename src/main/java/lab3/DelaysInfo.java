@@ -10,6 +10,7 @@ public class DelaysInfo {
 
     private JavaPairRDD<Pair<Integer, Integer>, float[]> delaysInfo;
     private JavaPairRDD<Pair<Integer, Integer>, float[]> combineDelaysInfo;
+    private JavaPairRDD<Pair<Integer, Integer>, String> delaysInfoWritable;
     private JavaRDD<String> delaysTable;
 
     private final static String COMMA = ",";
@@ -18,7 +19,13 @@ public class DelaysInfo {
     private final static int FLIGHT_DATA_DELAY_COLUMN = 0;
     private final static int FLIGHT_DATA_CANCELED_COLUMN = 1;
 
-    private final static int COUNT_FLIGHTS_DATA_COLUMNS = 2;
+    private final static int COUNT_FLIGHTS_DATA_COLUMNS = 4;
+    private final static int FLIGHTS_DATA_MAX_DELAY_COLUMN = 0;
+    private final static int FLIGHTS_DATA_COUNT_DELAYS_COLUMN = 1;
+    private final static int FLIGHTS_DATA_COUNT_CANCELED_COLUMN = 2;
+    private final static int FLIGHTS_DATA_COUNT_FLIGHTS_COLUMN = 3;
+
+
 
 
 
@@ -51,7 +58,7 @@ public class DelaysInfo {
                     Integer idTo = Integer.parseInt(parseLineGetPos(s, ID_TO_COLUMN));
                     Pair<Integer, Integer> ids = new Pair<>(idFrom, idTo);
 
-                    float flightData[] = new float[COUNT_FLIGHT_DATA_COLUMNS];
+                    float[] flightData = new float[COUNT_FLIGHT_DATA_COLUMNS];
 
                     if (parseLineGetPos(s, DELAY_COLUMN).length() > 0) {
                         flightData[FLIGHT_DATA_DELAY_COLUMN] = Float.parseFloat(parseLineGetPos(s, DELAY_COLUMN));
@@ -69,9 +76,36 @@ public class DelaysInfo {
     public void calcData() {
         combineDelaysInfo = delaysInfo.reduceByKey(
                 (firstFlightData, secondFlightData) -> {
+                    float[] flightsInfo = new float[COUNT_FLIGHTS_DATA_COLUMNS];
 
+                    flightsInfo[FLIGHTS_DATA_MAX_DELAY_COLUMN] = Float.max(
+                            firstFlightData[FLIGHT_DATA_DELAY_COLUMN],
+                            secondFlightData[FLIGHT_DATA_DELAY_COLUMN]
+                    );
+
+                    if (firstFlightData[FLIGHT_DATA_DELAY_COLUMN] != NULL_TIME) {
+                        flightsInfo[FLIGHTS_DATA_COUNT_DELAYS_COLUMN]++;
+                    }
+                    if (secondFlightData[FLIGHT_DATA_DELAY_COLUMN] != NULL_TIME) {
+                        flightsInfo[FLIGHTS_DATA_COUNT_DELAYS_COLUMN]++;
+                    }
+
+                    if (firstFlightData[FLIGHT_DATA_CANCELED_COLUMN] == CANCELED) {
+                        flightsInfo[FLIGHTS_DATA_COUNT_CANCELED_COLUMN]++;
+                    }
+                    if (secondFlightData[FLIGHT_DATA_CANCELED_COLUMN] == CANCELED) {
+                        flightsInfo[FLIGHTS_DATA_COUNT_CANCELED_COLUMN]++;
+                    }
+
+                    flightsInfo[FLIGHTS_DATA_COUNT_FLIGHTS_COLUMN] += 2;
+
+                    return flightsInfo;
                 }
-        )
+        );
+    }
+
+    public void toWritable() {
+        delaysInfoWritable = combineDelaysInfo.mapValues()
     }
 
 }

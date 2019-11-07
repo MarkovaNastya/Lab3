@@ -26,6 +26,7 @@ public class App {
 
         DelaysInfo delaysTable = new DelaysInfo(sc, args[1]);
         delaysTable.parseTable();
+        delaysTable.calcData();
 
 
 

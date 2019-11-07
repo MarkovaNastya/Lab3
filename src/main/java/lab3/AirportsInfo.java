@@ -8,7 +8,7 @@ import scala.Tuple2;
 public class AirportsInfo {
 
     private JavaPairRDD<Integer, String> airportsInfo;
-    private JavaRDD<String> airportsTable;
+//    private JavaRDD<String> airportsTable;
 
     private final static String QUOTES = "\"";
     private final static String COMMA = ",";
@@ -29,7 +29,7 @@ public class AirportsInfo {
         return column.replaceAll(QUOTES, EMPTY);
     }
 
-    public void parseTable() {
+    public void parseTable(JavaRDD<String> airportsTable) {
         airportsInfo =  airportsTable.mapToPair(
                 s -> {
                     Integer id = Integer.parseInt(parseLineGetPos(s, AIRPORTS_ID_COLUMN));

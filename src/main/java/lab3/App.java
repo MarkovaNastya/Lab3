@@ -15,7 +15,6 @@ public class App {
         String title = text.first();
         return text.filter(
                 s -> !s.equals(title)
-
         );
     }
 
@@ -38,8 +37,6 @@ public class App {
                     return out;
                 }
         );
-
-
     }
 
 

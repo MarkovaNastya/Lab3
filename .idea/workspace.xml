@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1c60a498-0207-478d-aac6-feb2161a29f6" name="Default Changelist" comment="" />
+    <list default="true" id="1c60a498-0207-478d-aac6-feb2161a29f6" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/lab3/Airports.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lab3/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab3/App.java" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -19,7 +29,9 @@
     </option>
   </component>
   <component name="ProjectId" id="1THqkxiRsvUMm9iTlBZEJ1Q8Si7" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>

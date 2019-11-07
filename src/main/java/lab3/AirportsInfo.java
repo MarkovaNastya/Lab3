@@ -21,7 +21,7 @@ public class AirportsInfo {
 
 
     public AirportsInfo(JavaSparkContext sc, String path) {
-        JavaRDD<String> airportsTable = App.deleteTitle(sc.textFile(path));
+        airportsTable = App.deleteTitle(sc.textFile(path));
     }
 
     private String parseLineGetPos(String line, int pos) {

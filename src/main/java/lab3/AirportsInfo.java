@@ -5,7 +5,7 @@ import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import scala.Tuple2;
 
-public class Airports {
+public class AirportsInfo {
 
     private JavaPairRDD<Integer, String> airportsInfo;
     private JavaRDD<String> airportsTable;
@@ -20,7 +20,7 @@ public class Airports {
     private final static int AIRPORTS_DESCRIPTION_COLIMN = 1;
 
 
-    public Airports(JavaSparkContext sc, String path) {
+    public AirportsInfo(JavaSparkContext sc, String path) {
         JavaRDD<String> airportsTable = App.deleteTitle(sc.textFile(path));
     }
 

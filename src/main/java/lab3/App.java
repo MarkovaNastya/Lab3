@@ -22,9 +22,9 @@ public class App {
 
 //        JavaRDD<String> airportsTable = deleteTitle(sc.textFile(args[0]));
 
-        Airports airports = new Airports(sc, args[0]);
-        airports.parseTable();
-        JavaPairRDD<Integer, String> airportsInfo = airports.getAirportsInfo();
+        AirportsInfo airportsTable = new AirportsInfo(sc, args[0]);
+        airportsTable.parseTable();
+        JavaPairRDD<Integer, String> airportsInfo = airportsTable.getAirportsInfo();
 
 
 

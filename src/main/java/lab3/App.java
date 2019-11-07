@@ -21,7 +21,10 @@ public class App {
 
     public static String map(Broadcast<Map<Integer, String>> airportsBroadcasted,
                              JavaPairRDD<Pair<Integer, Integer>, String> delaysInfo) {
-        
+
+        delaysInfo.map()
+
+
     }
 
 

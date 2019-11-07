@@ -107,7 +107,7 @@ public class DelaysInfo {
     public void toWritable() {
         delaysInfoWritable = combineDelaysInfo.mapValues(
                 flightsInfo -> {
-                    
+                    String maxDelayTime = String.valueOf(flightsInfo[FLIGHTS_DATA_MAX_DELAY_COLUMN]);
                 }
         )
     }

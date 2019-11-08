@@ -120,8 +120,8 @@ public class DelaysFunctions {
         return combineDelaysInfo.mapValues(
                 flightsInfo -> {
                     float maxDelayTime = flightsInfo[FLIGHTS_DATA_MAX_DELAY_COLUMN];
-                    float percenatageDelays = flightsInfo[FLIGHT_DATA_DELAY_COLUMN] / flightsInfo[FLIGHTS_DATA_COUNT_FLIGHTS_COLUMN] * 100;
-                    float percenatageCanceled = flightsInfo[FLIGHT_DATA_CANCELED_COLUMN] / flightsInfo[FLIGHTS_DATA_COUNT_FLIGHTS_COLUMN] * 100;
+                    float percenatageDelays = flightsInfo[FLIGHTS_DATA_COUNT_DELAYS_COLUMN] / flightsInfo[FLIGHTS_DATA_COUNT_FLIGHTS_COLUMN] * 100;
+                    float percenatageCanceled = flightsInfo[FLIGHTS_DATA_COUNT_CANCELED_COLUMN] / flightsInfo[FLIGHTS_DATA_COUNT_FLIGHTS_COLUMN] * 100;
                     return "   MaxDelayTime = " + maxDelayTime
                             + "; PercenatageDelays = " + percenatageDelays + "%"
                             + "; PercenatageCanceled = " + percenatageCanceled + "%";

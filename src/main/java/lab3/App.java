@@ -18,8 +18,8 @@ public class App {
         );
     }
 
-    public static JavaRDD<String> convertAllDataTo(Broadcast<Map<Integer, String>> airportsBroadcasted,
-                             JavaPairRDD<Pair<Integer, Integer>, String> delaysInfo) {
+    public static JavaRDD<String> convertAllDataToJavaRDDString(Broadcast<Map<Integer, String>> airportsBroadcasted,
+                                                                JavaPairRDD<Pair<Integer, Integer>, String> delaysInfo) {
 
         return delaysInfo.map(
                 data -> {
@@ -37,7 +37,7 @@ public class App {
                     return out;
                 }
         );
-    }JA
+    }
 
 
     public static void main(String[] args) {
@@ -47,15 +47,14 @@ public class App {
         JavaRDD<String> airportsTable = deleteTitle(sc.textFile(args[0]));
         JavaPairRDD<Integer, String> airportsInfo = AirportsFunctions.parseTable(airportsTable);
         Map<Integer, String> airportsInfoMap = airportsInfo.collectAsMap();
-
         final Broadcast<Map<Integer, String>> airportsBroadcasted = sc.broadcast(airportsInfoMap);
 
         JavaRDD<String> delaysTable = deleteTitle(sc.textFile(args[1]));
-        JavaPairRDD<Pair<Integer, Integer>, float[]> parseTable = DelaysFunctions.parseTable(delaysTable);
-        JavaPairRDD<Pair<Integer, Integer>, float[]> calcTable = DelaysFunctions.calcData(parseTable);
-        JavaPairRDD<Pair<Integer, Integer>, String> delaysInfo = DelaysFunctions.convertToWritable(calcTable);
+        JavaPairRDD<Pair<Integer, Integer>, float[]> flightInfo = DelaysFunctions.parseTable(delaysTable);
+        JavaPairRDD<Pair<Integer, Integer>, float[]> flightsInfo = DelaysFunctions.calcData(flightInfo);
+        JavaPairRDD<Pair<Integer, Integer>, String> delaysInfo = DelaysFunctions.convertToWritable(flightsInfo);
 
-        JavaRDD<String> out = convertAllDataTo(airportsBroadcasted, delaysInfo);
+        JavaRDD<String> out = convertAllDataToJavaRDDString(airportsBroadcasted, delaysInfo);
 
         out.saveAsTextFile(args[2]);
 

@@ -6,7 +6,6 @@ import scala.Tuple2;
 
 public class AirportsFunctions {
 
-
     private final static String QUOTES = "\"";
     private final static String COMMA = ",";
     private final static String EMPTY = "";

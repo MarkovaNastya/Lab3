@@ -76,12 +76,18 @@ public class DelaysInfo {
                         flightData[FLIGHTS_DATA_COUNT_CANCELED_COLUMN] = NO_CANCELED;
 
                         flightData[FLIGHTS_DATA_COUNT_FLIGHTS_COLUMN] = ONE_FLIGHT;
-
-
-
                     } else {
                         flightData[FLIGHT_DATA_DELAY_COLUMN] = NULL_TIME;
+
                         flightData[FLIGHT_DATA_CANCELED_COLUMN] = CANCELED;
+
+                        flightData[FLIGHTS_DATA_MAX_DELAY_COLUMN] = flightData[FLIGHT_DATA_DELAY_COLUMN];
+
+                        flightData[FLIGHTS_DATA_COUNT_DELAYS_COLUMN] = NO_DETAINED;
+
+                        flightData[FLIGHTS_DATA_COUNT_CANCELED_COLUMN] = CANCELED;
+
+                        flightData[FLIGHTS_DATA_COUNT_FLIGHTS_COLUMN] = ONE_FLIGHT;
                     }
 
                     return new Tuple2<>(ids, flightData);
@@ -92,30 +98,20 @@ public class DelaysInfo {
     public static JavaPairRDD<Pair<Integer, Integer>, float[]>  calcData(JavaPairRDD<Pair<Integer, Integer>, float[]> delaysInfo) {
         return delaysInfo.reduceByKey(
                 (firstFlightData, secondFlightData) -> {
-                    float[] flightsInfo = new float[COUNT_FLIGHTS_DATA_COLUMNS];
 
-                    flightsInfo[FLIGHTS_DATA_MAX_DELAY_COLUMN] = Float.max(
+                    firstFlightData[FLIGHTS_DATA_MAX_DELAY_COLUMN] = Float.max(
                             firstFlightData[FLIGHT_DATA_DELAY_COLUMN],
                             secondFlightData[FLIGHT_DATA_DELAY_COLUMN]
                     );
 
-                    if (firstFlightData[FLIGHT_DATA_DELAY_COLUMN] != NULL_TIME) {
-                        flightsInfo[FLIGHTS_DATA_COUNT_DELAYS_COLUMN]++;
-                    }
-                    if (secondFlightData[FLIGHT_DATA_DELAY_COLUMN] != NULL_TIME) {
-                        flightsInfo[FLIGHTS_DATA_COUNT_DELAYS_COLUMN]++;
-                    }
+                    firstFlightData[FLIGHTS_DATA_COUNT_DELAYS_COLUMN] += secondFlightData[FLIGHTS_DATA_COUNT_DELAYS_COLUMN];
 
-                    if (firstFlightData[FLIGHT_DATA_CANCELED_COLUMN] == CANCELED) {
-                        flightsInfo[FLIGHTS_DATA_COUNT_CANCELED_COLUMN]++;
-                    }
-                    if (secondFlightData[FLIGHT_DATA_CANCELED_COLUMN] == CANCELED) {
-                        flightsInfo[FLIGHTS_DATA_COUNT_CANCELED_COLUMN]++;
-                    }
+                    firstFlightData[FLIGHTS_DATA_COUNT_CANCELED_COLUMN] += secondFlightData[FLIGHTS_DATA_COUNT_CANCELED_COLUMN];
 
-                    flightsInfo[FLIGHTS_DATA_COUNT_FLIGHTS_COLUMN] += 2;
+                    firstFlightData[FLIGHTS_DATA_COUNT_FLIGHTS_COLUMN] += secondFlightData[FLIGHTS_DATA_COUNT_FLIGHTS_COLUMN];
 
-                    return flightsInfo;
+
+                    return firstFlightData;
                 }
         );
     }

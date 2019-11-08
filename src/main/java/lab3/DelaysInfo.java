@@ -15,15 +15,15 @@ public class DelaysInfo {
 
     private final static String COMMA = ",";
 
-    private final static int COUNT_FLIGHT_DATA_COLUMNS = 2;
+    private final static int COUNT_FLIGHT_DATA_COLUMNS = 6;
     private final static int FLIGHT_DATA_DELAY_COLUMN = 0;
     private final static int FLIGHT_DATA_CANCELED_COLUMN = 1;
 
-    private final static int COUNT_FLIGHTS_DATA_COLUMNS = 4;
-    private final static int FLIGHTS_DATA_MAX_DELAY_COLUMN = 0;
-    private final static int FLIGHTS_DATA_COUNT_DELAYS_COLUMN = 1;
-    private final static int FLIGHTS_DATA_COUNT_CANCELED_COLUMN = 2;
-    private final static int FLIGHTS_DATA_COUNT_FLIGHTS_COLUMN = 3;
+//    private final static int COUNT_FLIGHTS_DATA_COLUMNS = 4;
+    private final static int FLIGHTS_DATA_MAX_DELAY_COLUMN = 2;
+    private final static int FLIGHTS_DATA_COUNT_DELAYS_COLUMN = 3;
+    private final static int FLIGHTS_DATA_COUNT_CANCELED_COLUMN = 4;
+    private final static int FLIGHTS_DATA_COUNT_FLIGHTS_COLUMN = 5;
 
     private final static float NULL_TIME = 0;
     private final static float NO_CANCELED = 0;
@@ -42,6 +42,10 @@ public class DelaysInfo {
         return line.split(COMMA)[pos];
     }
 
+    private static boolean isCanceled(String s) {
+        return !(parseLineGetPos(s, DELAY_COLUMN).length() > 0);
+    }
+
     public static JavaPairRDD<Pair<Integer, Integer>, float[]> parseTable(JavaRDD<String> delaysTable) {
         return delaysTable.mapToPair(
                 s -> {
@@ -51,7 +55,7 @@ public class DelaysInfo {
 
                     float[] flightData = new float[COUNT_FLIGHT_DATA_COLUMNS];
 
-                    if (parseLineGetPos(s, DELAY_COLUMN).length() > 0) {
+                    if (!isCanceled(s)) {
                         flightData[FLIGHT_DATA_DELAY_COLUMN] = Float.parseFloat(parseLineGetPos(s, DELAY_COLUMN));
                         flightData[FLIGHT_DATA_CANCELED_COLUMN] = NO_CANCELED;
                     } else {
@@ -107,7 +111,7 @@ public class DelaysInfo {
                 }
         );
     }
-    
+
 
 //    public JavaPairRDD<Pair<Integer, Integer>, String> getDelaysInfoWritable() {
 //        return delaysInfoWritable;

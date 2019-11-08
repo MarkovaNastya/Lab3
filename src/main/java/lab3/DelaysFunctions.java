@@ -19,7 +19,7 @@ public class DelaysFunctions {
     private final static int FLIGHT_DATA_DELAY_COLUMN = 0;
     private final static int FLIGHT_DATA_CANCELED_COLUMN = 1;
 
-//    private final static int COUNT_FLIGHTS_DATA_COLUMNS = 4;
+    //    private final static int COUNT_FLIGHTS_DATA_COLUMNS = 4;
     private final static int FLIGHTS_DATA_MAX_DELAY_COLUMN = 2;
     private final static int FLIGHTS_DATA_COUNT_DELAYS_COLUMN = 3;
     private final static int FLIGHTS_DATA_COUNT_CANCELED_COLUMN = 4;
@@ -111,6 +111,7 @@ public class DelaysFunctions {
                     firstFlightData[FLIGHTS_DATA_COUNT_FLIGHTS_COLUMN] += secondFlightData[FLIGHTS_DATA_COUNT_FLIGHTS_COLUMN];
 
 
+
                     return firstFlightData;
                 }
         );
@@ -118,17 +119,16 @@ public class DelaysFunctions {
 
     public static JavaPairRDD<Pair<Integer, Integer>, String> toWritable(JavaPairRDD<Pair<Integer, Integer>, float[]> combineDelaysInfo) {
         return combineDelaysInfo.mapValues(
-                flightsInfo -> {
-                    float maxDelayTime = flightsInfo[FLIGHTS_DATA_MAX_DELAY_COLUMN];
-                    float percenatageDelays = flightsInfo[FLIGHTS_DATA_COUNT_DELAYS_COLUMN] / flightsInfo[FLIGHTS_DATA_COUNT_FLIGHTS_COLUMN] * 100;
-                    float percenatageCanceled = flightsInfo[FLIGHTS_DATA_COUNT_CANCELED_COLUMN] / flightsInfo[FLIGHTS_DATA_COUNT_FLIGHTS_COLUMN] * 100;
+                flightData -> {
+                    float maxDelayTime = flightData[FLIGHTS_DATA_MAX_DELAY_COLUMN];
+                    float percenatageDelays = flightData[FLIGHTS_DATA_COUNT_DELAYS_COLUMN] / flightData[FLIGHTS_DATA_COUNT_FLIGHTS_COLUMN] * 100;
+                    float percenatageCanceled = flightData[FLIGHTS_DATA_COUNT_CANCELED_COLUMN] / flightData[FLIGHTS_DATA_COUNT_FLIGHTS_COLUMN] * 100;
                     return "   MaxDelayTime = " + maxDelayTime
                             + "; PercenatageDelays = " + percenatageDelays + "%"
                             + "; PercenatageCanceled = " + percenatageCanceled + "%";
                 }
         );
     }
-
 
 //    public JavaPairRDD<Pair<Integer, Integer>, String> getDelaysInfoWritable() {
 //        return delaysInfoWritable;

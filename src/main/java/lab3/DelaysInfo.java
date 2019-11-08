@@ -28,6 +28,11 @@ public class DelaysInfo {
     private final static float NULL_TIME = 0;
     private final static float NO_CANCELED = 0;
     private final static float CANCELED = 1;
+    private final static float NULL_DELAY = 0;
+    private final static float DETAINED = 1;
+    private final static float NO_DETAINED = 0;
+    private final static float ONE_FLIGHT = 1;
+
 
     private final static int ID_FROM_COLUMN = 11;
     private final static int ID_TO_COLUMN = 14;
@@ -57,7 +62,23 @@ public class DelaysInfo {
 
                     if (!isCanceled(s)) {
                         flightData[FLIGHT_DATA_DELAY_COLUMN] = Float.parseFloat(parseLineGetPos(s, DELAY_COLUMN));
+
                         flightData[FLIGHT_DATA_CANCELED_COLUMN] = NO_CANCELED;
+
+                        flightData[FLIGHTS_DATA_MAX_DELAY_COLUMN] = flightData[FLIGHT_DATA_DELAY_COLUMN];
+
+                        if (flightData[FLIGHT_DATA_DELAY_COLUMN] != NULL_DELAY) {
+                            flightData[FLIGHTS_DATA_COUNT_DELAYS_COLUMN] = DETAINED;
+                        } else {
+                            flightData[FLIGHTS_DATA_COUNT_DELAYS_COLUMN] = NO_DETAINED;
+                        }
+
+                        flightData[FLIGHTS_DATA_COUNT_CANCELED_COLUMN] = NO_CANCELED;
+
+                        flightData[FLIGHTS_DATA_COUNT_FLIGHTS_COLUMN] = ONE_FLIGHT;
+
+
+
                     } else {
                         flightData[FLIGHT_DATA_DELAY_COLUMN] = NULL_TIME;
                         flightData[FLIGHT_DATA_CANCELED_COLUMN] = CANCELED;

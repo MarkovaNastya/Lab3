@@ -50,8 +50,8 @@ public class App {
         final Broadcast<Map<Integer, String>> airportsBroadcasted = sc.broadcast(airportsInfoMap);
 
         JavaRDD<String> delaysTable = deleteTitle(sc.textFile(args[1]));
-        JavaPairRDD<Pair<Integer, Integer>, float[]> flightInfo = DelaysFunctions.parseTable(delaysTable);
-        JavaPairRDD<Pair<Integer, Integer>, float[]> flightsInfo = DelaysFunctions.calcData(flightInfo);
+        JavaPairRDD<Pair<Integer, Integer>, float[]> flightInfo = DelaysFunctions.calculateFlightData(delaysTable);
+        JavaPairRDD<Pair<Integer, Integer>, float[]> flightsInfo = DelaysFunctions.calculateFlightsData(flightInfo);
         JavaPairRDD<Pair<Integer, Integer>, String> delaysInfo = DelaysFunctions.convertToWritable(flightsInfo);
 
         JavaRDD<String> out = convertAllDataToJavaRDDString(airportsBroadcasted, delaysInfo);

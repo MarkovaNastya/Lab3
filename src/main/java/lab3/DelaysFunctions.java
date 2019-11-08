@@ -37,7 +37,7 @@ public class DelaysFunctions {
         return !(parseLineGetPos(s, DELAY_COLUMN).length() > 0);
     }
 
-    public static JavaPairRDD<Pair<Integer, Integer>, float[]> parseTable(JavaRDD<String> delaysTable) {
+    public static JavaPairRDD<Pair<Integer, Integer>, float[]> calculateFlightData(JavaRDD<String> delaysTable) {
         return delaysTable.mapToPair(
                 s -> {
                     Integer idFrom = Integer.parseInt(parseLineGetPos(s, ID_FROM_COLUMN));
@@ -81,7 +81,7 @@ public class DelaysFunctions {
         );
     }
 
-    public static JavaPairRDD<Pair<Integer, Integer>, float[]>  calcData(JavaPairRDD<Pair<Integer, Integer>, float[]> delaysInfo) {
+    public static JavaPairRDD<Pair<Integer, Integer>, float[]> calculateFlightsData(JavaPairRDD<Pair<Integer, Integer>, float[]> delaysInfo) {
         return delaysInfo.reduceByKey(
                 (firstFlightData, secondFlightData) -> {
 

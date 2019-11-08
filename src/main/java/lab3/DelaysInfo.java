@@ -107,6 +107,7 @@ public class DelaysInfo {
                 }
         );
     }
+    
 
 //    public JavaPairRDD<Pair<Integer, Integer>, String> getDelaysInfoWritable() {
 //        return delaysInfoWritable;

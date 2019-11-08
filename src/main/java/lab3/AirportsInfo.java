@@ -38,6 +38,9 @@ public class AirportsInfo {
                     return new Tuple2<>(id, description);
                 }
         );
+ //       (10001, "Afognak Lake, AK: Afognak Lake Airport")
+//        (10003, "Granite Mountain, AK: Bear Creek Mining Strip")
+
     }
 
 //    public JavaPairRDD<Integer, String> getAirportsInfo() {
